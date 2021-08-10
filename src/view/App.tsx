@@ -15,6 +15,22 @@ const GlobalStyle = createGlobalStyle`
       height: 100%;
     }
   }
+  /* width */
+  ::-webkit-scrollbar {
+    width: 2px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #95afc0; 
+    border-radius: 10px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #535c68;
+    border-radius: 10px;
+  }
 `;
 
 const Application: FC = () => {

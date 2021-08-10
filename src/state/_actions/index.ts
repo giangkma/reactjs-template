@@ -1,10 +1,5 @@
-import * as AppActions from './App';
-import * as ErrorActions from './Error';
-import * as FetchingActions from './Fetching';
+import * as UserActions from './User';
 
-export { AppActions, ErrorActions, FetchingActions };
+export { UserActions };
 
-export type RootAction =
-    | AppActions.AppActions
-    | ErrorActions.ErrorActions
-    | FetchingActions.FetchingActions;
+export type RootAction = UserActions.UserActions;

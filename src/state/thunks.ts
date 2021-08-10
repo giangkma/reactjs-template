@@ -1,1 +1,1 @@
-export { default as ErrorThunks } from './App/ErrorThunks';
+export { default as UserThunks } from './User/UserThunks';
