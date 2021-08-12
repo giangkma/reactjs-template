@@ -1,7 +1,7 @@
+import 'firebase/auth';
 import React, { FC } from 'react';
-import { ThemeProvider, createGlobalStyle } from 'styled-components';
-
 import { ReduxProvider } from 'src/state';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import Router from './routes/Router';
 
 const GlobalStyle = createGlobalStyle`

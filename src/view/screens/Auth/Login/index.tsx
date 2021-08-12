@@ -1,10 +1,12 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
+import withFirebaseAuth from 'react-with-firebase-auth';
 
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { DataLogin } from 'src/domain/user';
 import { UserAuthInfo } from 'src/domain/user/schema';
+import { realtimeDatabase, firestore } from 'src/helper/firebase';
 import { classValidatorFormResolverFactory } from 'src/helper/form';
 import { showToatify } from 'src/helper/toat';
 import { UserThunks } from 'src/state/thunks';
@@ -13,6 +15,7 @@ import { Spinner } from 'src/view/components/loading/Spinner';
 import { useMessageData } from 'src/view/hooks';
 import { useIsMountedRef } from 'src/view/hooks/useIsMountedRef';
 import { Screen } from 'src/view/routes/Router';
+import firebase from 'firebase';
 
 const userAuthInfoValidatorResolver = classValidatorFormResolverFactory<
     UserAuthInfo
@@ -30,31 +33,78 @@ const Login: FC = () => {
     const { isSuccess, message, setMessage, clearMessage } = useMessageData();
 
     const [loading, setLoading] = useState<boolean>(false);
+    const citiesRef = useRef(firestore.collection('cities'));
 
-    const onSubmit = async (data: DataLogin): Promise<void> => {
+    const onSubmit = async (): Promise<void> => {
         try {
             setLoading(true);
-            await dispatch(UserThunks.onLoginThunk(data));
-            showToatify('success', 'Chào mừng bạn !');
-            history.push(Screen.Home);
+            citiesRef.current.doc('SF').update({
+                population: firebase.firestore.FieldValue.increment(500),
+            });
+            // await dispatch(UserThunks.onLoginThunk(data));
+            // showToatify('success', 'Chào mừng bạn !');
+            // history.push(Screen.Home);
         } catch (error) {
             setMessage({ message: error.message });
         } finally {
             if (!mountedRef.current) {
                 return;
             }
-            setLoading(false);
+            setTimeout(() => {
+                setLoading(false);
+            }, 1000);
         }
     };
 
+    const test = async () => {
+        const first = citiesRef.current.orderBy('population').limit(2);
+
+        await first.get().then(documentSnapshots => {
+            // Get the last visible document
+            const lastVisible =
+                documentSnapshots.docs[documentSnapshots.docs.length - 1];
+            console.log('last', lastVisible.data());
+            console.log(documentSnapshots.size);
+
+            // Construct a new query starting at this document,
+            // get the next 25 cities.
+            const next = citiesRef.current
+                .orderBy('population')
+                .startAfter(lastVisible)
+                .limit(2);
+
+            console.log(next.get());
+        });
+    };
+
+    const [name, setName] = useState<string>('');
+    useEffect(() => {
+        // const ref = realtimeDatabase.ref('name');
+        // ref.on('value', snapshot => {
+        //     const listDeveloper = snapshot.val();
+        //     setName(listDeveloper);
+        // });
+        (async () => {
+            console.log(test());
+        })();
+    }, []);
+
     return (
         <div className="h-full flex items-center justify-center bg-gray-800">
+            <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="button"
+                onClick={onSubmit}
+            >
+                Giang Giang
+            </button>
             <Spinner loading={loading} />
             <div className="w-full max-w-lg px-3 bg-gray-800">
                 <form
                     className=" bg-white shadow-md rounded px-8 py-8 pt-8"
                     onSubmit={handleSubmit(onSubmit)}
                 >
+                    <p>{name}</p>
                     <Alert
                         isSuccess={isSuccess}
                         message={message}
