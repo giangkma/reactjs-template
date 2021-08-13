@@ -96,7 +96,7 @@ const Login: FC = () => {
                 type="button"
                 onClick={onSubmit}
             >
-                Phanh Phanh
+                NSHDHDNDNDH
             </button>
             <Spinner loading={loading} />
             <div className="w-full max-w-lg px-3 bg-gray-800">
