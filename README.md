@@ -1,4 +1,4 @@
-Alight creator app
+Reactjs Template
 
 ## Setup
 
