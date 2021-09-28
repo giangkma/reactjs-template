@@ -1,4 +1,4 @@
-Reactjs Templateeee
+Reactjs Templateeeeds
 
 ## Setup
 
