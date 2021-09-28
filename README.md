@@ -1,4 +1,4 @@
-Reactjs Templateeeedsdfdsfsdf
+Reactjs Template
 
 ## Setup
 
