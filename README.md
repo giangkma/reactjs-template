@@ -1,5 +1,5 @@
 Reactjs Template
-ssssss
+sssssss
 ## Setup
 
 -   Run `yarn` to install needed packages
