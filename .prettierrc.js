@@ -1,4 +1,4 @@
-module.exports = {xxxfxx
+module.exports = {xxxfxxx
   bracketSpacing: true,
   jsxBracketSameLine: false,
   singleQuote: true,
