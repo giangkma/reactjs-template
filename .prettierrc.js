@@ -1,4 +1,4 @@
-module.exports = {dd
+module.exports = {
   bracketSpacing: true,
   jsxBracketSameLine: false,
   singleQuote: true,
