@@ -1,5 +1,5 @@
 module.exports = {
-  // skipCI: false,d
+  // skipCI: false,dd
   hooks: {
     "pre-commit": "npm run lint:diff -s",
     "pre-push": "npm run lint -s",
